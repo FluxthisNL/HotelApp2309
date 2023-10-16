@@ -55,9 +55,17 @@ def restaurantNumbers(rating_treshold=4.0):
 
   city_counts = highly_rated_restaurants["City"].value_counts()
 
-  city_counts_dict = city_counts.to_dict()
+  city_info = pd.DataFrame({"RestaurantCount":city_counts})
+
+  city_reviews = highly_rated_restaurants.groupby("City")["Number of Reviews"].sum()
+
+  city_info["TotalReviews"] = city_info.index.map(city_reviews)
+
+  city_info["TotalReviews"] = city_info["TotalReviews"]
+
+  city_info_dict = city_info.to_dict(orient="index")
   
-  return jsonify({"city_counts_dict": city_counts_dict})
+  return jsonify({"city_info_dict": city_info_dict})
   
 def filter_and_dropdown(price_range):
     
