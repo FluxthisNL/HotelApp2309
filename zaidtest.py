@@ -6,12 +6,12 @@ from json import loads,dumps
 
 
 
-def fuctiezaid5zoek_in_csv(zoektekst):
+def fuctiepointerinfo(zoektekst):
     bestand = pd.read_csv("csvfiles/MuseaGalleries.csv", sep=";", encoding='latin-1')
     resultaat = bestand[bestand['Title'].str.contains(zoektekst, case=False, na=False)][['Title', 'Adres']].iloc[0]
     return resultaat
 
-def functiezaid4index():
+def functiemap():
     return render_template('museum_map.html')
 
 def functiezaid3zoek():
@@ -24,7 +24,7 @@ def functiezaid3zoek():
     return jsonify(resultaat_lijst)
 
 
-def functiezaid2():
+def functiemaakmap():
    keys = ('Latitude','Longitude')
    records = [ ]
 
